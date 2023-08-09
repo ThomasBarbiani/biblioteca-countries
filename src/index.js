@@ -14,7 +14,7 @@ root.render(
         <Route element={<App />}>
           <Route path="/" element={<Countries />}/>
           <Route path="/country/:name" element={<Country />}/>
-          <Route path= "search" element={<Search />} />
+          <Route path= "/search" element={<Search />} />
         </Route>
       </Routes>
     </BrowserRouter>

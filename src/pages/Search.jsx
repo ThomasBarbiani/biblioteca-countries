@@ -1,5 +1,6 @@
 import { CssBaseline } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 const Search = () => {
@@ -10,26 +11,27 @@ const Search = () => {
 
     const getSearchedCountry = async (url) => {
         try {
-            const res = await fetch(url);
-            const data = await res.json();
-            setCountry(data.results);
+            const res = await axios.get(url);
+            setCountry(res.data);
+            console.log(country)
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     }
 
     useEffect(() => {
-        const searchWithQueryURL = `https://countryinfoapi.com/api/countries/name/${query}`;
-
-        getSearchedCountry(searchWithQueryURL);
+        const url = `https://countryinfoapi.com/api/countries/name/${query}`
+        getSearchedCountry(url)
     }, [query])
-
+    
     return (
         <>
             <CssBaseline />
             {country && (
-                <>
-                    <p>{country.cca3}</p>
+                <>  
+                    <p>{country.name}</p> 
+                    <p>{country.cca3}</p> 
+                    <p>{country.capital}</p> 
                 </>
             )}
         </>
